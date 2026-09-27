@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Risk Assessment Framework for Small Businesses (SMEs)</title>
+  <meta name="description" content="A comprehensive, NIST CSF 2.0 aligned web-based cybersecurity risk assessment application for Small and Medium Enterprises (SMEs). Evaluate threats, calculate risk scores, and generate mitigation plans.">
+  <meta name="keywords" content="cybersecurity, risk assessment, SME, small business, NIST CSF, risk matrix, risk register, phishing, ransomware">
+  <meta name="author" content="Cybersecurity Research Team">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Chart.js CDN for Dynamic Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand-wrapper" data-view-target="landing">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <div class="brand-title">CYBERSHIELD SME</div>
+          <span class="brand-badge">NIST CSF 2.0 ALIGNED</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><button class="nav-btn active" data-view-target="landing">Home</button></li>
+          <li><button class="nav-btn" data-view-target="wizard">Assessment</button></li>
+          <li><button class="nav-btn" data-view-target="dashboard">Dashboard</button></li>
+          <li><button class="nav-btn" data-view-target="matrix">5×5 Matrix</button></li>
+          <li><button class="nav-btn" data-view-target="register">Risk Register</button></li>
+          <li><button class="nav-btn" data-view-target="nist">NIST Framework</button></li>
+          <li><button class="nav-btn" data-view-target="actionplan">Action Plan</button></li>
+          <li><button class="nav-btn" data-view-target="report">Report</button></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="nav-load-demo-btn" class="btn btn-demo btn-sm" title="Load sample TechNova Solutions SME assessment">⚡ Load Demo</button>
+        <button id="nav-start-assessment-btn" class="btn btn-primary btn-sm">📋 Start Assessment</button>
+        <button id="nav-print-report-btn" class="btn btn-secondary btn-sm no-print">🖨 Print Report</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- Active Demo Data Notification Banner -->
+    <div id="demo-data-banner" class="demo-banner" style="display: none;">
+      <div>
+        <strong>DEMO DATA ACTIVE:</strong> Currently viewing assessment profile for <em>TechNova Solutions</em> (50 employees, 75 devices, IT Services).
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="switchView('wizard')">Start New Custom Assessment</button>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 1: LANDING PAGE -->
+    <!-- ======================================================== -->
+    <section id="view-landing" class="view-section active">
+      <!-- Hero Banner -->
+      <div class="hero-section">
+        <div>
+          <div class="hero-tag">🛡️ Enterprise-Grade Cybersecurity for Small Businesses</div>
+          <h1 class="hero-title">Protect Your SME with <span>NIST-Aligned</span> Risk Intelligence</h1>
+          <p class="hero-description">
+            Over 43% of cyber attacks target small businesses, yet 60% lack the resources to quantify their vulnerabilities.
+            Our framework delivers quantitative risk scoring, NIST CSF 2.0 maturity evaluation, interactive 5×5 risk matrices,
+            and prioritized mitigation roadmaps designed specifically for SMEs.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="switchView('wizard')">🚀 Start Risk Assessment</button>
+            <button class="btn btn-demo" onclick="loadDemoData()">⚡ Explore TechNova Demo</button>
+            <button class="btn btn-secondary" onclick="switchView('dashboard')">📊 View Dashboard</button>
+          </div>
+        </div>
+
+        <div class="hero-stats-card">
+          <div class="section-tag">Executive Summary</div>
+          <h3>SME Cyber Threat Landscape</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+            Real-world risk metrics highlighting the urgency of structured cybersecurity controls for small and medium enterprises.
+          </p>
+          <div class="stat-grid">
+            <div class="stat-box">
+              <div class="stat-number">43%</div>
+              <div class="stat-label">of all cyber attacks globally target small businesses</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">60%</div>
+              <div class="stat-label">of victim SMEs go out of business within 6 months of a breach</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">$2.98M</div>
+              <div class="stat-label">average total financial damage of an SME data breach</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">125 Max</div>
+              <div class="stat-label">Quantitative Threat Score model (Likelihood × Severity × Impact)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 Core Threats Section -->
+      <div class="section-header">
+        <div class="section-tag">Threat Landscape</div>
+        <h2 class="section-title">10 Critical Cybersecurity Threats Evaluated</h2>
+        <p class="section-subtitle">
+          Our assessment rigorously evaluates the top 10 cyber threats confronting small organizations, mapping each attack vector directly to industry-standard mitigations.
+        </p>
+      </div>
+
+      <div class="threat-cards-grid">
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🎣</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">1. Phishing</h3>
+          <p class="threat-card-desc">Social engineering via deceptive emails, credential harvesting landing pages, and executive impersonation to compromise corporate accounts.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🔒</div>
+            <span class="control-category-tag">PROTECT / RECOVER</span>
+          </div>
+          <h3 class="threat-card-title">2. Ransomware</h3>
+          <p class="threat-card-desc">Malicious encryption of operational files and backups demanding extortion payments; causes severe multi-week business downtime.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🦠</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">3. Malware</h3>
+          <p class="threat-card-desc">Trojans, keyloggers, and spyware infiltrating workstations through infected attachments, shadow IT, or malicious USB media.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">👤</div>
+            <span class="control-category-tag">IDENTIFY</span>
+          </div>
+          <h3 class="threat-card-title">4. Insider Threat</h3>
+          <p class="threat-card-desc">Disgruntled or negligent employees abusing legitimate system access to exfiltrate proprietary data, intellectual property, or financial records.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">📂</div>
+            <span class="control-category-tag">IDENTIFY / PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">5. Data Breach</h3>
+          <p class="threat-card-desc">Unauthorized access and exfiltration of sensitive customer data or PII, triggering catastrophic legal, GDPR/HIPAA, and reputational liabilities.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🔑</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">6. Weak Passwords</h3>
+          <p class="threat-card-desc">Predictable, shared, or single-factor credentials susceptible to automated dictionary attacks, brute-forcing, and credential stuffing.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">⚡</div>
+            <span class="control-category-tag">RESPOND</span>
+          </div>
+          <h3 class="threat-card-title">7. DDoS</h3>
+          <p class="threat-card-desc">Volumetric botnet floods knocking down client-facing websites, APIs, and portals, disrupting revenue generation and customer trust.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🛠️</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">8. Unpatched Software</h3>
+          <p class="threat-card-desc">Neglected operating systems, CMS plugins, and legacy applications containing publicly published vulnerabilities (CVEs) targeted by botnets.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🎭</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">9. Social Engineering</h3>
+          <p class="threat-card-desc">Psychological manipulation targeting administrative staff, suppliers, and accounting personnel to authorize fraudulent wire transfers.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-card-header">
+            <div class="threat-icon">🚪</div>
+            <span class="control-category-tag">PROTECT</span>
+          </div>
+          <h3 class="threat-card-title">10. Unauthorized Access</h3>
+          <p class="threat-card-desc">External intrusion through exposed remote desktop ports (RDP 3389), open firewalls, or unrevoked contractor access credentials.</p>
+        </div>
+      </div>
+
+      <!-- NIST CSF 2.0 5 Pillars -->
+      <div class="section-header">
+        <div class="section-tag">Core Architecture</div>
+        <h2 class="section-title">NIST Cybersecurity Framework (CSF 2.0)</h2>
+        <p class="section-subtitle">
+          Our risk engine maps every security question, control deficiency, and mitigation action to the five core functions of the NIST framework.
+        </p>
+      </div>
+
+      <div class="nist-grid">
+        <div class="nist-col nist-col-1">
+          <div class="nist-col-header">
+            <div class="nist-fn-name" style="color: #38bdf8;">IDENTIFY</div>
+          </div>
+          <ul class="nist-items-list">
+            <li>Asset Management</li>
+            <li>Risk Assessment</li>
+            <li>Governance & Compliance</li>
+            <li>Data Classification</li>
+          </ul>
+        </div>
+
+        <div class="nist-col nist-col-2">
+          <div class="nist-col-header">
+            <div class="nist-fn-name" style="color: #10b981;">PROTECT</div>
+          </div>
+          <ul class="nist-items-list">
+            <li>Identity & MFA</li>
+            <li>Data Encryption</li>
+            <li>Endpoint Protection</li>
+            <li>Security Awareness Training</li>
+          </ul>
+        </div>
+
+        <div class="nist-col nist-col-3">
+          <div class="nist-col-header">
+            <div class="nist-fn-name" style="color: #f59e0b;">DETECT</div>
+          </div>
+          <ul class="nist-items-list">
+            <li>Continuous Monitoring</li>
+            <li>Authentication Logs</li>
+            <li>Intrusion Detection</li>
+            <li>Anomaly Alerting</li>
+          </ul>
+        </div>
+
+        <div class="nist-col nist-col-4">
+          <div class="nist-col-header">
+            <div class="nist-fn-name" style="color: #f97316;">RESPOND</div>
+          </div>
+          <ul class="nist-items-list">
+            <li>Response Planning</li>
+            <li>Incident Containment</li>
+            <li>Crisis Communications</li>
+            <li>Forensic Triage</li>
+          </ul>
+        </div>
+
+        <div class="nist-col nist-col-5">
+          <div class="nist-col-header">
+            <div class="nist-fn-name" style="color: #8b5cf6;">RECOVER</div>
+          </div>
+          <ul class="nist-items-list">
+            <li>Immutable Backups</li>
+            <li>Disaster Recovery</li>
+            <li>Service Restoration</li>
+            <li>Post-Incident Review</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Methodology Card -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; margin-top: 3.5rem;">
+        <div class="section-tag">Risk Assessment Model</div>
+        <h2>Transparent Quantitative Scoring Methodology</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+          <div class="stat-box">
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">Threat Risk Score</h4>
+            <code style="font-size: 0.95rem; color: #38bdf8;">Risk Score = Likelihood × Severity × Business Impact</code>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Each parameter is evaluated on a 1 to 5 Likert scale. Maximum possible threat score = <strong>125</strong>.
+            </p>
+          </div>
+          <div class="stat-box">
+            <h4 style="color: var(--risk-low); margin-bottom: 0.5rem;">Security Posture Score</h4>
+            <code style="font-size: 0.95rem; color: #34d399;">Posture = (Implemented Controls / 10) × 100</code>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+              Evaluates implementation of 10 essential security controls (Firewall, EDR, MFA, Backups, Encryption, etc.).
+            </p>
+          </div>
+          <div class="stat-box">
+            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">Risk Classification</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+              <span class="badge badge-low">0-25: Low</span>
+              <span class="badge badge-moderate">26-50: Moderate</span>
+              <span class="badge badge-high">51-75: High</span>
+              <span class="badge badge-very-high">76-100: Very High</span>
+              <span class="badge badge-critical">101-125: Critical</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: RISK ASSESSMENT WIZARD -->
+    <!-- ======================================================== -->
+    <section id="view-wizard" class="view-section">
+      <div class="wizard-container">
+        <!-- Step Indicators -->
+        <div class="wizard-steps">
+          <div class="wizard-step-item active" data-step="1">
+            <div class="step-circle">1</div>
+            <div class="step-title">Business Profile</div>
+          </div>
+          <div class="wizard-step-item" data-step="2">
+            <div class="step-circle">2</div>
+            <div class="step-title">Security Controls</div>
+          </div>
+          <div class="wizard-step-item" data-step="3">
+            <div class="step-circle">3</div>
+            <div class="step-title">Threat Evaluation</div>
+          </div>
+          <div class="wizard-step-item" data-step="4">
+            <div class="step-circle">4</div>
+            <div class="step-title">Review & Calculate</div>
+          </div>
+        </div>
+
+        <form id="assessment-wizard-form">
+          <!-- Step 1: Business Profile -->
+          <div id="wizard-step-1" class="wizard-step-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+              <h2>Step 1: SME Organizational Profile</h2>
+              <button type="button" id="wizard-demo-btn" class="btn btn-demo btn-sm">⚡ Load Demo Values</button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="biz-name">Business Legal Name *</label>
+                <input type="text" id="biz-name" class="form-input" placeholder="e.g., TechNova Solutions" required value="TechNova Solutions">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="biz-industry">Industry Sector *</label>
+                <select id="biz-industry" class="form-select">
+                  <option value="IT Services" selected>Information Technology / Software</option>
+                  <option value="Healthcare">Healthcare & Clinical Services</option>
+                  <option value="Financial">Financial & Accounting Services</option>
+                  <option value="Retail & E-commerce">Retail & E-commerce</option>
+                  <option value="Manufacturing">Manufacturing & Supply Chain</option>
+                  <option value="Professional Services">Legal & Professional Services</option>
+                  <option value="Other">Other SME</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="biz-employees">Total Employees *</label>
+                <input type="number" id="biz-employees" class="form-input" min="1" max="10000" value="50" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="biz-devices">Total Connected Devices (PCs, Laptops, Phones) *</label>
+                <input type="number" id="biz-devices" class="form-input" min="1" max="50000" value="75" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="biz-locations">Physical Office Locations</label>
+                <input type="number" id="biz-locations" class="form-input" min="1" max="100" value="2">
+              </div>
+            </div>
+
+            <h4 style="margin: 1.5rem 0 1rem; color: #38bdf8;">Operational Exposure Attributes</h4>
+            <div class="control-switch-grid">
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">Utilizes Cloud Services?</div>
+                  <div class="control-desc">Uses SaaS platforms (Microsoft 365, Google Workspace, AWS, Azure, Salesforce).</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="biz-cloud" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">Stores Sensitive Customer Data (PII)?</div>
+                  <div class="control-desc">Stores personal identification, payment card numbers, or medical/health records.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="biz-data" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">Has Remote / Hybrid Employees?</div>
+                  <div class="control-desc">Staff work outside corporate perimeter accessing internal assets from home networks.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="biz-remote" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+              <button type="button" class="btn btn-primary" data-wizard-nav="next">Next: Security Controls ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 2: 10 Security Controls -->
+          <div id="wizard-step-2" class="wizard-step-content" style="display: none;">
+            <div style="margin-bottom: 1.5rem;">
+              <h2>Step 2: Implemented Security Controls</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Toggle <strong>ON</strong> for controls currently implemented and operational within your organization.
+              </p>
+            </div>
+
+            <div class="control-switch-grid">
+              <!-- Control 1: Firewall -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    1. Hardware/Software Firewall
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Monitors and filters incoming/outgoing network traffic with default-deny inbound rules.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="firewall" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 2: Antivirus/EDR -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    2. Antivirus / Endpoint Protection (EDR)
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Centrally managed next-gen endpoint protection with behavioral anti-ransomware capabilities.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="antivirus" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 3: MFA -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    3. Multi-Factor Authentication (MFA)
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Enforced two-step verification for corporate email, SaaS suites, and VPN logins.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="mfa">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 4: Backups -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    4. Regular & Immutable Backups
+                    <span class="control-category-tag">RECOVER</span>
+                  </div>
+                  <div class="control-desc">Follows 3-2-1 backup strategy with verified offline or cloud-immutable storage copies.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="backups" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 5: Encryption -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    5. Data Encryption (At Rest & Transit)
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">AES-256 full disk encryption on laptops (BitLocker/FileVault) and TLS 1.3 across networks.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="encryption">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 6: Employee Training -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    6. Employee Cybersecurity Training
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Ongoing employee awareness sessions with simulated phishing drills and credential hygiene.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="training">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 7: Software Updates -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    7. Regular Software & Patch Updates
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Scheduled patching for operating systems, browsers, and critical third-party tools within 14 days.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="patching" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 8: Access Control / RBAC -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    8. Access Control & RBAC
+                    <span class="control-category-tag">PROTECT</span>
+                  </div>
+                  <div class="control-desc">Principle of Least Privilege enforced; standard staff stripped of administrative privileges.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="access_control" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 9: Security Monitoring -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    9. Security Event Monitoring & Logging
+                    <span class="control-category-tag">DETECT</span>
+                  </div>
+                  <div class="control-desc">Centralized retention and alerting for failed authentications and suspicious privilege elevation.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="monitoring">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <!-- Control 10: Incident Response Plan -->
+              <div class="control-item">
+                <div class="control-info">
+                  <div class="control-name">
+                    10. Incident Response Plan
+                    <span class="control-category-tag">RESPOND</span>
+                  </div>
+                  <div class="control-desc">Formally documented response procedures, legal contacts, and recovery checklists for cyber incidents.</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" data-control-id="incident_response">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+              <button type="button" class="btn btn-secondary" data-wizard-nav="prev">⬅ Back</button>
+              <button type="button" class="btn btn-primary" data-wizard-nav="next">Next: Threat Evaluation ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 3: 10 Threat Evaluations -->
+          <div id="wizard-step-3" class="wizard-step-content" style="display: none;">
+            <div style="margin-bottom: 1.5rem;">
+              <h2>Step 3: Threat Evaluation (Likelihood, Severity & Business Impact)</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Rate each threat on a scale of 1 (Lowest) to 5 (Highest).
+                <strong>Formula: Risk Score = Likelihood × Severity × Business Impact</strong> (Maximum = 125).
+              </p>
+            </div>
+
+            <!-- Threat 1: Phishing -->
+            <div class="threat-eval-item" data-threat-id="phishing">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">1. Phishing & Email Fraud</div>
+                  <span class="control-category-tag">PROTECT: PR.AT</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">64</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 2: Ransomware -->
+            <div class="threat-eval-item" data-threat-id="ransomware">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">2. Ransomware & Extortion</div>
+                  <span class="control-category-tag">PROTECT / RECOVER: PR.DS</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">75</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">5</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="5">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">5</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="5">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 3: Malware -->
+            <div class="threat-eval-item" data-threat-id="malware">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">3. Malware (Trojans, Spyware, Rootkits)</div>
+                  <span class="control-category-tag">PROTECT: PR.PT</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">36</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 4: Insider Threat -->
+            <div class="threat-eval-item" data-threat-id="insider_threat">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">4. Insider Threat & Data Misuse</div>
+                  <span class="control-category-tag">IDENTIFY: ID.AM</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">18</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">2</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="2">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="3">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 5: Data Breach -->
+            <div class="threat-eval-item" data-threat-id="data_breach">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">5. Sensitive Data Breach</div>
+                  <span class="control-category-tag">IDENTIFY: ID.RA</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">80</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">5</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="5">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 6: Weak Passwords -->
+            <div class="threat-eval-item" data-threat-id="weak_passwords">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">6. Weak Passwords & Credential Stuffing</div>
+                  <span class="control-category-tag">PROTECT: PR.AC</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">64</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 7: DDoS -->
+            <div class="threat-eval-item" data-threat-id="ddos">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">7. DDoS (Distributed Denial of Service)</div>
+                  <span class="control-category-tag">RESPOND: RS.MI</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">18</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">2</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="2">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="3">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 8: Unpatched Software -->
+            <div class="threat-eval-item" data-threat-id="unpatched_software">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">8. Unpatched Software & Outdated Systems</div>
+                  <span class="control-category-tag">PROTECT: PR.IP</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">36</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">3</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="3">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 9: Social Engineering -->
+            <div class="threat-eval-item" data-threat-id="social_engineering">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">9. Social Engineering & CEO Impersonation</div>
+                  <span class="control-category-tag">PROTECT: PR.AT</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">64</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="4">
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat 10: Unauthorized Access -->
+            <div class="threat-eval-item" data-threat-id="unauthorized_access">
+              <div class="threat-eval-header">
+                <div>
+                  <div class="threat-eval-title">10. Unauthorized Access & Open RDP</div>
+                  <span class="control-category-tag">PROTECT: PR.AC</span>
+                </div>
+                <div class="threat-live-score">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated Score:</span>
+                  <div class="threat-score-pill">80</div>
+                </div>
+              </div>
+              <div class="sliders-grid">
+                <div class="slider-group">
+                  <label>Likelihood: <span class="val-l">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="likelihood" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Severity: <span class="val-s">4</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="severity" min="1" max="5" value="4">
+                </div>
+                <div class="slider-group">
+                  <label>Business Impact: <span class="val-i">5</span> / 5</label>
+                  <input type="range" class="range-slider" data-param="impact" min="1" max="5" value="5">
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+              <button type="button" class="btn btn-secondary" data-wizard-nav="prev">⬅ Back</button>
+              <button type="button" class="btn btn-primary" data-wizard-nav="next">Next: Review & Calculate ➔</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Review & Calculate -->
+          <div id="wizard-step-4" class="wizard-step-content" style="display: none;">
+            <div style="margin-bottom: 1.5rem;">
+              <h2>Step 4: Review Assessment Configuration</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Confirm your input parameters before triggering the algorithmic risk calculations, NIST scoring, and mitigation engine.
+              </p>
+            </div>
+
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+              <h4 style="color: #38bdf8; margin-bottom: 0.75rem;">Organizational Profile</h4>
+              <div id="rev-biz-summary" style="font-size: 0.9rem; line-height: 1.7;"></div>
+            </div>
+
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+              <h4 style="color: #10b981; margin-bottom: 0.75rem;">Security Controls Summary</h4>
+              <div id="rev-ctrl-summary" style="font-size: 0.9rem; line-height: 1.7;"></div>
+            </div>
+
+            <div class="report-disclaimer-box" style="margin-bottom: 2rem;">
+              <strong>DISCLAIMER & METHODOLOGY NOTICE:</strong> This assessment evaluates cybersecurity risk exposure using standard NIST CSF 2.0 heuristics and user-reported inputs. It provides prioritized decision-support guidance for SME leadership.
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+              <button type="button" class="btn btn-secondary" data-wizard-nav="prev">⬅ Back to Threats</button>
+              <button type="submit" id="submit-assessment-btn" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.85rem 2rem;">
+                🛡 Submit & Generate Risk Assessment
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 3: EXECUTIVE DASHBOARD -->
+    <!-- ======================================================== -->
+    <section id="view-dashboard" class="view-section">
+      <!-- KPI Top Summary Grid -->
+      <div class="dashboard-kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-title">Overall Risk Score</div>
+          <div class="kpi-value-row">
+            <div id="kpi-overall-score" class="kpi-value">53.5</div>
+            <span style="color: var(--text-dim); font-size: 1rem;">/ 125</span>
+          </div>
+          <div style="margin-top: 0.65rem;">
+            <span id="kpi-overall-badge" class="badge badge-high">High Risk</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Security Posture</div>
+          <div class="kpi-value-row">
+            <div id="kpi-posture-score" class="kpi-value">50.0%</div>
+          </div>
+          <div style="margin-top: 0.65rem;">
+            <span id="kpi-posture-badge" class="badge posture-needs-improvement">Needs Improvement</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Critical Threat Exposure</div>
+          <div class="kpi-value-row">
+            <div id="kpi-critical-count" class="kpi-value" style="color: #f87171;">0</div>
+            <span style="color: var(--text-dim); font-size: 0.9rem;">Threats (101-125)</span>
+          </div>
+          <div class="kpi-subtext">Immediate remediation required</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">High & Very High Threats</div>
+          <div class="kpi-value-row">
+            <div id="kpi-high-count" class="kpi-value" style="color: #fb923c;">6</div>
+            <span style="color: var(--text-dim); font-size: 0.9rem;">Threats (51-100)</span>
+          </div>
+          <div class="kpi-subtext">Active operational vulnerability</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-title">Moderate & Low Risks</div>
+          <div class="kpi-value-row">
+            <div id="kpi-moderate-count" class="kpi-value" style="color: #34d399;">4</div>
+            <span style="color: var(--text-dim); font-size: 0.9rem;">Managed Threats</span>
+          </div>
+          <div class="kpi-subtext">Low count: <span id="kpi-low-count">2</span></div>
+        </div>
+      </div>
+
+      <!-- Charts Grid Row 1 -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Threat Risk Ranking (Highest to Lowest Score)</div>
+            <span class="badge" style="background: rgba(255,255,255,0.1)">Max: 125</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-threat-ranking"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Risk Severity Distribution</div>
+            <span class="badge" style="background: rgba(255,255,255,0.1)">10 Threats</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-risk-distribution"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Grid Row 2 -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Likelihood vs. Business Impact Correlation</div>
+            <span class="badge" style="background: rgba(255,255,255,0.1)">Bubble Size = Total Risk</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-likelihood-impact"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">NIST CSF 2.0 Maturity Profile</div>
+            <span class="badge" style="background: rgba(255,255,255,0.1)">5 Functions</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-nist-radar"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Security Controls Breakdown -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Security Control Implementation & Deficiency Ratio</div>
+          <button class="btn btn-secondary btn-sm" onclick="switchView('actionplan')">View Action Plan ➔</button>
+        </div>
+        <div class="chart-wrapper" style="height: 250px;">
+          <canvas id="chart-controls-pie"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 4: 5x5 RISK MATRIX -->
+    <!-- ======================================================== -->
+    <section id="view-matrix" class="view-section">
+      <div class="matrix-container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2>5×5 Quantitative Cybersecurity Risk Matrix</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.35rem;">
+              Threats plotted by Likelihood (X-axis: 1-5) and Severity/Impact (Y-axis: 1-5).
+              Click on any threat badge to view detailed mitigation guidance.
+            </p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="switchView('register')">📋 View Risk Register Table</button>
+        </div>
+
+        <!-- Legend -->
+        <div class="matrix-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: #10b981;"></div>
+            <span>Low Risk (0 - 25)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #f59e0b;"></div>
+            <span>Moderate Risk (26 - 50)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #f97316;"></div>
+            <span>High Risk (51 - 75)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #dc2626;"></div>
+            <span>Critical / Very High (76 - 125)</span>
+          </div>
+        </div>
+
+        <!-- 5x5 Grid Wrapper -->
+        <div class="matrix-grid-wrapper">
+          <div class="matrix-y-label">Severity / Impact (1 to 5) ➔</div>
+          <div style="overflow-x: auto;">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th style="width: 140px;">Severity \ Likelihood</th>
+                  <th>1 - Rare</th>
+                  <th>2 - Unlikely</th>
+                  <th>3 - Moderate</th>
+                  <th>4 - Likely</th>
+                  <th>5 - Almost Certain</th>
+                </tr>
+              </thead>
+              <tbody id="matrix-table-body">
+                <!-- Generated dynamically by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 5: RISK REGISTER -->
+    <!-- ======================================================== -->
+    <section id="view-register" class="view-section">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div>
+            <h2>Comprehensive Cybersecurity Risk Register</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">
+              Filter, sort, and inspect all assessed threat vectors, risk calculations, and assigned priorities.
+            </p>
+          </div>
+
+          <div class="table-filters">
+            <input type="text" id="register-search-input" class="search-box" placeholder="🔍 Search threat name...">
+            
+            <select id="register-filter-level" class="form-select" style="width: auto; padding: 0.5rem 0.85rem;">
+              <option value="ALL">All Risk Levels</option>
+              <option value="CRITICAL">Critical</option>
+              <option value="VERY HIGH">Very High</option>
+              <option value="HIGH">High</option>
+              <option value="MODERATE">Moderate</option>
+              <option value="LOW">Low</option>
+            </select>
+
+            <select id="register-filter-nist" class="form-select" style="width: auto; padding: 0.5rem 0.85rem;">
+              <option value="ALL">All NIST Functions</option>
+              <option value="IDENTIFY">Identify</option>
+              <option value="PROTECT">Protect</option>
+              <option value="DETECT">Detect</option>
+              <option value="RESPOND">Respond</option>
+              <option value="RECOVER">Recover</option>
+            </select>
+
+            <button id="export-csv-btn" class="btn btn-secondary btn-sm">📊 Export CSV</button>
+            <button id="export-json-btn" class="btn btn-secondary btn-sm">📥 Export JSON</button>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-sort="name">Threat Name ⇕</th>
+                <th data-sort="nistCategory">NIST Function ⇕</th>
+                <th data-sort="likelihood">Likelihood (1-5) ⇕</th>
+                <th data-sort="severity">Severity (1-5) ⇕</th>
+                <th data-sort="impact">Impact (1-5) ⇕</th>
+                <th data-sort="score">Risk Score (Max 125) ⇕</th>
+                <th data-sort="riskLevel">Risk Level ⇕</th>
+                <th data-sort="priority">Priority ⇕</th>
+                <th>Mitigation Details</th>
+              </tr>
+            </thead>
+            <tbody id="register-table-body">
+              <!-- Rendered dynamically by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 6: NIST CSF 2.0 DEEP DIVE -->
+    <!-- ======================================================== -->
+    <section id="view-nist" class="view-section">
+      <div class="section-header">
+        <div class="section-tag">NIST Cybersecurity Framework Alignment</div>
+        <h2 class="section-title">NIST CSF 2.0 Maturity & Alignment Profile</h2>
+        <p class="section-subtitle">
+          Evaluation of organizational capabilities across the five NIST functions: Identify, Protect, Detect, Respond, and Recover.
+        </p>
+      </div>
+
+      <div id="nist-details-container" class="threat-cards-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 7: PRIORITY ACTION PLAN -->
+    <!-- ======================================================== -->
+    <section id="view-actionplan" class="view-section">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>Prioritized Risk Mitigation Roadmap</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.35rem;">
+            Rule-based mitigation plan structured from Priority 1 (Immediate / Critical) to Priority 5 (Proactive Maintenance).
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="switchView('report')">🖨 Generate Assessment Report</button>
+      </div>
+
+      <div class="report-disclaimer-box" style="margin-bottom: 2rem;">
+        <strong>SECURITY IMPLEMENTATION DISCLAIMER:</strong>
+        Cybersecurity defense requires layered, defense-in-depth safeguards. Implementing these recommendations significantly lowers vulnerability attack surfaces but does not guarantee total immunity against advanced persistent threats (APTs) or zero-day exploits.
+      </div>
+
+      <div id="action-plan-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 8: ASSESSMENT REPORT (PRINT & PDF READY) -->
+    <!-- ======================================================== -->
+    <section id="view-report" class="view-section">
+      <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-bottom: 1.5rem;" class="no-print">
+        <button class="btn btn-primary" onclick="window.print()">🖨 Print / Save as PDF</button>
+        <button class="btn btn-secondary" onclick="exportRegisterCSV()">📊 Download CSV Register</button>
+        <button class="btn btn-secondary" onclick="exportRegisterJSON()">📥 Download JSON Report</button>
+      </div>
+
+      <div class="report-view">
+        <div class="report-header">
+          <div>
+            <div class="report-title">CYBERSECURITY RISK ASSESSMENT REPORT</div>
+            <div style="font-weight: 700; color: #0284c7; margin-top: 0.35rem;">Framework for Small and Medium Enterprises (SMEs)</div>
+            <div class="report-meta" style="margin-top: 0.35rem;">Aligned with NIST Cybersecurity Framework (CSF 2.0)</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-weight: 800; font-size: 1.25rem;">CONFIDENTIAL</div>
+            <div class="report-meta" id="rep-date">Generated on September 27, 2026</div>
+          </div>
+        </div>
+
+        <!-- Chapter 1: Business Profile -->
+        <div class="report-section">
+          <div class="report-section-title">1. Organization Profile & Scope</div>
+          <div class="report-grid">
+            <div class="report-stat-box">
+              <div class="report-stat-label">Organization Name</div>
+              <div id="rep-biz-name" class="report-stat-num" style="font-size: 1.25rem;">TechNova Solutions</div>
+            </div>
+            <div class="report-stat-box">
+              <div class="report-stat-label">Industry Sector</div>
+              <div id="rep-industry" class="report-stat-num" style="font-size: 1.25rem;">IT Services</div>
+            </div>
+            <div class="report-stat-box">
+              <div class="report-stat-label">Employees</div>
+              <div id="rep-employees" class="report-stat-num">50</div>
+            </div>
+            <div class="report-stat-box">
+              <div class="report-stat-label">Connected Devices</div>
+              <div id="rep-devices" class="report-stat-num">75</div>
+            </div>
+            <div class="report-stat-box">
+              <div class="report-stat-label">Locations</div>
+              <div id="rep-locations" class="report-stat-num">2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapter 2: Executive Metrics -->
+        <div class="report-section">
+          <div class="report-section-title">2. Executive Risk & Posture Scorecard</div>
+          <div class="report-grid">
+            <div class="report-stat-box" style="border-left-color: #dc2626;">
+              <div class="report-stat-label">Overall Risk Score (0-125)</div>
+              <div id="rep-overall-score" class="report-stat-num">53.5</div>
+              <div id="rep-overall-level" style="font-weight: 700; color: #dc2626;">High Risk</div>
+            </div>
+            <div class="report-stat-box" style="border-left-color: #10b981;">
+              <div class="report-stat-label">Security Posture (0-100%)</div>
+              <div id="rep-posture-score" class="report-stat-num">50.0%</div>
+              <div style="font-size: 0.85rem; color: #64748b;">Needs Improvement</div>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; line-height: 1.6; color: #334155; margin-top: 1rem;">
+            <strong>Mathematical Formulation:</strong> Each threat risk score is computed as:
+            <code>Risk Score = Likelihood (1-5) × Severity (1-5) × Business Impact (1-5)</code>, with a maximum possible index of 125.
+            The Security Posture Score evaluates the percentage of operational controls out of the 10 NIST CSF safeguards.
+          </p>
+        </div>
+
+        <!-- Chapter 3: Threat Register Table -->
+        <div class="report-section">
+          <div class="report-section-title">3. Evaluated Risk Register Table</div>
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Threat</th>
+                <th>NIST Function</th>
+                <th>Likelihood</th>
+                <th>Severity</th>
+                <th>Impact</th>
+                <th>Risk Score</th>
+                <th>Level</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+            <tbody id="rep-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Chapter 4: Conclusion & Disclaimer -->
+        <div class="report-section">
+          <div class="report-section-title">4. Strategic Assessment Conclusion</div>
+          <p style="font-size: 0.9rem; line-height: 1.6; color: #334155;">
+            The assessed organization demonstrates foundational security awareness but exhibits critical exposure in credential protection, multi-factor authentication (MFA), immutable data backup strategies, and documented incident response protocols.
+            Immediate adoption of Priority 1 safeguards is strongly advised within 14 business days to avert ransomware downtime and data breach liabilities.
+          </p>
+          <div class="report-disclaimer-box">
+            <strong>NOTICE OF LIMITATION:</strong> This report represents a point-in-time risk model calculated using user-provided parameters and NIST CSF 2.0 evaluation guidelines. It does not replace comprehensive third-party penetration testing, code auditing, or formal ISO 27001 / SOC 2 certification audits.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Threat Details Modal -->
+  <div id="threat-detail-modal" class="modal-overlay">
+    <div class="modal-dialog">
+      <button id="modal-close-btn" class="modal-close">&times;</button>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <h3 id="modal-threat-title" style="color: #38bdf8;">Threat Details</h3>
+        <span id="modal-threat-badge" class="badge badge-high">High</span>
+      </div>
+
+      <div style="background: rgba(15,23,42,0.9); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.85rem;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; text-align: center;">
+          <div>
+            <div style="color: var(--text-dim);">Likelihood</div>
+            <strong id="modal-threat-l" style="font-size: 1.25rem; color: #ffffff;">4</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-dim);">Severity</div>
+            <strong id="modal-threat-s" style="font-size: 1.25rem; color: #ffffff;">4</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-dim);">Impact</div>
+            <strong id="modal-threat-i" style="font-size: 1.25rem; color: #ffffff;">4</strong>
+          </div>
+          <div>
+            <div style="color: var(--text-dim);">Total Score</div>
+            <strong id="modal-threat-score" style="font-size: 1.25rem; color: #f97316;">64</strong>
+          </div>
+        </div>
+        <div style="margin-top: 0.75rem; text-align: center; color: var(--text-muted);">
+          NIST Function: <span id="modal-threat-nist" class="control-category-tag">PROTECT</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <h4 style="margin-bottom: 0.4rem;">Risk Context:</h4>
+        <p id="modal-threat-desc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;"></p>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 0.6rem;">Recommended Safeguards:</h4>
+        <ul id="modal-threat-mitigations" class="nist-items-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
